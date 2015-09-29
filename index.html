@@ -114,9 +114,7 @@
         console.log('Solved successfully: \n' + JSON.stringify(solution));
 
         // update form inputs
-        solution.forEach(function(value, idx){
-          inputs[idx].value = value;
-        });
+        updateGrid(solution);
 
         // update button label
         button.innerHTML = 'Solved!';
@@ -158,7 +156,7 @@
     }
 
     // init grid with puzzle
-    [
+    updateGrid([
       0,0,7,0,0,3,7,8,0,
       4,0,3,0,8,0,0,1,7,
       0,8,5,0,0,0,0,3,0,
@@ -168,9 +166,23 @@
       0,3,0,0,0,0,7,4,0,
       7,4,0,0,2,0,3,0,1,
       0,9,2,3,0,0,8,0,0
-    ].forEach(function(value, idx){
-      inputs[idx].value = value || '';
-    })
+    ]);
+
+    function updateGrid(numbers){
+      var idx = 0;
+      for (var i = 0; i < 3; i++){
+        var nums = numbers.slice(i*27, (i*27)+27);
+        for (var j = 0; j < 3; j++){
+          [].concat(nums.slice((j*3)+(0), ((j*3)+3)+(0)))
+            .concat(nums.slice((j*3)+(9), ((j*3)+3)+(9)))
+            .concat(nums.slice((j*3)+(18), ((j*3)+3)+(18)))
+            .forEach(function(n){
+              inputs[idx].value = n || '';
+              idx++;
+            });
+        }
+      }
+    };
   </script>
 </body>
 </html>
