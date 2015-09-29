@@ -8,10 +8,13 @@
   <style>
     .container {
       text-align: center;
+      margin-top:20px;
+      width: 850px;
     }
     table.table {
-      margin: 30px auto;
-      width: 480px;
+      display:inline-block;
+      width: 270px;
+      margin: 0;
     }
     table.table td {
       border-color: #000;
@@ -19,7 +22,7 @@
     input {
       height: 100%;
       width: 100%;
-      font-size: 80px;
+      font-size: 40px;
       text-align:center;
       border: none;
     }
@@ -27,28 +30,43 @@
 </head>
 <body>
   <div class="container text-center">
+    <noscript>
+      <div class="alert alert-danger">Sorry, please enable javascript!</div>
+    </noscript>
+
     <form>
-      <table class="table table-bordered">
-        <tr>
-          <td><input type="number" autofocus maxlength="1" min="1" max="9"/></td>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-        </tr>
-        <tr>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-        </tr>
-        <tr>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-          <td><input type="number" maxlength="1" min="1" max="9"/></td>
-        </tr>
-      </table>
+      <div id="grid"></div>
       <button class="btn btn-lg btn-danger">Solve Me!</button>
     </form>
   </div>
+
+  <script type="text/html" id="grid-template">
+    <table class="table table-bordered">
+      <tr>
+        <td><input type="number" autofocus maxlength="1" min="1" max="9"/></td>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+      </tr>
+      <tr>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+      </tr>
+      <tr>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        <td><input type="number" maxlength="1" min="1" max="9"/></td>
+      </tr>
+    </table>
+  </script>
+
   <script>
+
+    // insert grid template 9x
+    var template = "",
+      gridTpl = document.getElementById('grid-template').innerHTML;
+    for (var i = 0; i < 9; i++) template += gridTpl;
+    document.getElementById('grid').innerHTML = template;
 
     // listen for form submit trigger event
     document.getElementsByTagName('form')[0].onsubmit = function(){
@@ -68,7 +86,7 @@
 
       // output result to form
       if (solution instanceof Array &&
-        solution.length == 9) {
+        solution.length == 81) {
 
         // log to console for debugging
         console.log('Solved successfully: ' + JSON.stringify(solution));
@@ -104,7 +122,17 @@
       // todo: implement solution
 
       // return solved array of numbers
-      return [1,2,3,4,5,6,7,8,9];
+      return [
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9,
+        1,2,3,4,5,6,7,8,9
+      ];
     }
   </script>
 </body>
