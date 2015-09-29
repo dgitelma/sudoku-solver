@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sudoku solver</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+  <style>
+    .container {
+      text-align: center;
+    }
+    table.table {
+      margin: 30px auto;
+      width: 480px;
+    }
+    table.table td {
+      border-color: #000;
+    }
+    input {
+      height: 100%;
+      width: 100%;
+      font-size: 80px;
+      text-align:center;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <form>
+      <table class="table table-bordered">
+        <tr>
+          <td><input type="number" autofocus maxlength="1" min="1" max="9"/></td>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        </tr>
+        <tr>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        </tr>
+        <tr>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+          <td><input type="number" maxlength="1" min="1" max="9"/></td>
+        </tr>
+      </table>
+      <button class="btn btn-lg btn-danger">Solve Me!</button>
+    </form>
+  </div>
+  <script>
+
+    // listen for form submit trigger event
+    document.getElementsByTagName('form')[0].onsubmit = function(){
+
+      // grab numbers from form inputs
+      var button = document.getElementsByTagName('button')[0],
+        inputs = document.getElementsByTagName('input'),
+        numbers = Array.prototype.map.call(inputs, function(input){
+          return input.value ? parseInt(input.value) : null;
+        });
+
+      // log to console for debugging
+      console.log('Currently solving: ' + JSON.stringify(numbers));
+
+      // attempt to solve numbers
+      var solution = solve(numbers);
+
+      // output result to form
+      if (solution instanceof Array &&
+        solution.length == 9) {
+
+        // log to console for debugging
+        console.log('Solved successfully: ' + JSON.stringify(solution));
+
+        // update form inputs
+        solution.forEach(function(value, idx){
+          inputs[idx].value = value;
+        });
+
+        // update button label
+        button.innerHTML = 'Solved!';
+      }
+
+      // output error to form
+      else {
+
+        // log to console for debugging
+        console.log('Could not solve: ' + JSON.stringify(solution));
+
+        // update button label with error
+        button.innerHTML = 'Error! :(';
+      }
+
+      return false;
+    }
+
+    /**
+     * Solve the sudoku puzzle!
+     */
+    function solve(numbers){
+      // numbers = [1,2,3,4,5,6,7,8,9];
+
+      // todo: implement solution
+
+      // return solved array of numbers
+      return [1,2,3,4,5,6,7,8,9];
+    }
+  </script>
+</body>
+</html>
