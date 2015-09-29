@@ -9,20 +9,21 @@
     .container {
       text-align: center;
       margin-top:20px;
-      width: 850px;
+      width: 500px;
     }
     table.table {
       display:inline-block;
-      width: 270px;
+      width: 125px;
       margin: 0;
     }
     table.table td {
       border-color: #000;
+      padding: 0;
     }
     input {
       height: 100%;
       width: 100%;
-      font-size: 40px;
+      font-size: 20px;
       text-align:center;
       border: none;
     }
@@ -78,18 +79,33 @@
           return input.value ? parseInt(input.value) : null;
         });
 
+      // transform numbers to read fully
+      // left-to-right over entire grid
+      var numbersGrid = [];
+      for (var i = 0; i < 3; i++){
+        var nums = numbers.slice(i*27, (i*27)+27);
+        for (var j = 0; j < 3; j++){
+          for (var k = 0; k < 3; k++){
+            Array.prototype.push.apply(
+              numbersGrid,
+              nums.slice((j*3)+(k*9), ((j*3)+3)+(k*9))
+            );
+          }
+        }
+      }
+
       // log to console for debugging
-      console.log('Currently solving: ' + JSON.stringify(numbers));
+      console.log('Currently solving: \n' + JSON.stringify(numbersGrid));
 
       // attempt to solve numbers
-      var solution = solve(numbers);
+      var solution = solve(numbersGrid);
 
       // output result to form
       if (solution instanceof Array &&
         solution.length == 81) {
 
         // log to console for debugging
-        console.log('Solved successfully: ' + JSON.stringify(solution));
+        console.log('Solved successfully: \n' + JSON.stringify(solution));
 
         // update form inputs
         solution.forEach(function(value, idx){
