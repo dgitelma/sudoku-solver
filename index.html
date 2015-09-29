@@ -69,15 +69,21 @@
     for (var i = 0; i < 9; i++) template += gridTpl;
     document.getElementById('grid').innerHTML = template;
 
+    // grab numbers from form inputs
+    var button = document.getElementsByTagName('button')[0],
+      inputs = document.getElementsByTagName('input');
+
     // listen for form submit trigger event
     document.getElementsByTagName('form')[0].onsubmit = function(){
-
-      // grab numbers from form inputs
-      var button = document.getElementsByTagName('button')[0],
-        inputs = document.getElementsByTagName('input'),
-        numbers = Array.prototype.map.call(inputs, function(input){
-          return input.value ? parseInt(input.value) : null;
-        });
+      var numbers = Array.prototype.map.call(inputs, function(input){
+        if (input.value) {
+          input.style.background = '#fff';
+          return parseInt(input.value);
+        } else {
+          input.style.background = '#eee';
+          return null;
+        }
+      });
 
       // transform numbers to read fully
       // left-to-right over entire grid
@@ -150,6 +156,21 @@
         1,2,3,4,5,6,7,8,9
       ];
     }
+
+    // init grid with puzzle
+    [
+      0,0,7,0,0,3,7,8,0,
+      4,0,3,0,8,0,0,1,7,
+      0,8,5,0,0,0,0,3,0,
+      0,0,9,7,0,1,5,0,0,
+      0,0,4,9,0,2,1,0,0,
+      0,0,1,4,0,8,9,0,0,
+      0,3,0,0,0,0,7,4,0,
+      7,4,0,0,2,0,3,0,1,
+      0,9,2,3,0,0,8,0,0
+    ].forEach(function(value, idx){
+      inputs[idx].value = value || '';
+    })
   </script>
 </body>
 </html>
